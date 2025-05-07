@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<csp_whitelist xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Csp:etc/csp_whitelist.xsd">
+    <policies>
+        <policy id="connect-src">
+            <values>
+                <value id="pragma-connect1" type="host">https://partners-loanfront.box.pragmago.tech</value>
+                <value id="pragma-connect2" type="host">https://external-partner.box.pragmago.tech</value>
+                <value id="pragma-connect3" type="host">https://api-partner.box.pragmago.tech</value>
+            </values>
+        </policy>
+        <policy id="script-src">
+            <values>
+                <value id="pragma-sdk" type="host">partners-loanfront.box.pragmago.tech</value>
+                <value id="external-pragma-sdk" type="host">external-partner.box.pragmago.tech</value>
+                <value id="api-pragma-sdk" type="host">api-partner.box.pragmago.tech</value>
+                <value id="my-zadarma-pragma" type="host">my.zadarma.com</value>
+            </values>
+        </policy>
+        <policy id="frame-src">
+            <values>
+                <value id="pragmago-frame" type="host">partners-loanfront.box.pragmago.tech</value>
+            </values>
+        </policy>
+        <policy id="style-src">
+            <values>
+                <value id="pragma-style" type="host">https://partners-loanfront.box.pragmago.tech</value>
+            </values>
+        </policy>
+        <policy id="img-src">
+            <values>
+                <value id="pragma-img" type="host">https://partners-loanfront.box.pragmago.tech</value>
+            </values>
+        </policy>
+    </policies>
+</csp_whitelist>

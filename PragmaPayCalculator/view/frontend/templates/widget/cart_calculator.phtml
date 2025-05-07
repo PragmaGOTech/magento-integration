@@ -1,0 +1,32 @@
+<?php
+/** @var \Pragma\PragmaPayCalculator\Block\Widget\CartCalculatorWidget $block*/
+/** @var \Magento\Framework\Escaper $escaper */
+$partnerKey = $block->getPartnerKey();
+$price = $block->getCartTotal();
+?>
+
+<?php if ($price): ?>
+    <div class=" checkout-methods-items">
+        <div id="pragmago"></div>
+        <button id="calculatorPragmaPay"
+                style="display:none;"
+                class="action primary checkout"
+                data-partner-key="<?= $escaper->escapeHtmlAttr($partnerKey) ?>"
+                data-price="<?= $escaper->escapeHtmlAttr($price) ?>">
+            <?= $escaper->escapeHtml(__('Calculate PragmaPay installments')) ?>
+        </button>
+    </div>
+    <script type="text/x-magento-init">
+        {
+            "#calculatorPragmaPay": {
+                "Magento_Ui/js/core/app": {
+                    "components": {
+                        "pragmagoCalc": {
+                            "component": "Pragma_PragmaPayCalculator/js/pragmago-calculator"
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+<?php endif; ?>

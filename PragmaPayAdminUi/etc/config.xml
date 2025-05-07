@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <pragma_payment>
+            <connection>
+                <return_url>checkout/onepage/success</return_url>
+                <notification_url>rest/V1/pragmapay/notify</notification_url>
+                <cancel_url>checkout/onepage/failure</cancel_url>
+            </connection>
+            <cart>
+                <min_order_total>100</min_order_total>
+                <max_order_total>50000</max_order_total>
+            </cart>
+        </pragma_payment>
+        <payment>
+            <pragma_payment>
+                <active>1</active>
+                <model>PragmaPayment</model>
+                <payment_action>authorize</payment_action>
+                <title>PragmaPay - odroczone płatności dla firm</title>
+                <can_authorize>1</can_authorize>
+                <can_capture>1</can_capture>
+                <can_void>1</can_void>
+                <can_cancel>1</can_cancel>
+                <can_review_payment>0</can_review_payment>
+                <can_refund_partial_per_invoice>1</can_refund_partial_per_invoice>
+                <can_refund>1</can_refund>
+                <can_use_internal>1</can_use_internal>
+                <can_use_checkout>1</can_use_checkout>
+                <is_gateway>1</is_gateway>
+                <sort_order>1</sort_order>
+                <paymentInfoKeys>pragma_payment_redirect_url,pragma_payment_uuid</paymentInfoKeys>
+            </pragma_payment>
+        </payment>
+    </default>
+</config>

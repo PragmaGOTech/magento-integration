@@ -1,0 +1,22 @@
+{
+    "name": "pragma/pay-meta",
+    "description": "Meta package for Pragma Pay modules",
+    "type": "metapackage",
+    "require": {
+        "pragma/module-pragma-pay-admin-ui": "^1.0",
+        "pragma/module-pragma-pay-core": "^1.0",
+        "pragma/module-pragma-pay-frontend-ui": "^1.0",
+        "pragma/module-pragma-pay-web-api": "^1.0"
+    },
+    "suggest": {
+        "pragma/pragma-pay-calculator": "Recommended if calculator widget functionality is needed."
+    },
+    "authors": [
+        {
+            "name": "PragmaGo Tech",
+            "email": "tech@pragmago.com"
+        }
+    ],
+    "minimum-stability": "stable",
+    "prefer-stable": true
+}

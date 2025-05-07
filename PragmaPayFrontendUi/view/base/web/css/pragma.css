@@ -1,0 +1,11 @@
+.pragma-payment__logo {
+    max-height: 18px;
+    margin-bottom: -3px;
+}
+.pragma-payment__description {
+    display: block;
+    margin-left: 20px;
+}
+.pragma-payment__product_button .pragma-payment__img {
+    max-width: 496px;
+}

@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <preference for="Pragma\PragmaPayWebApi\Api\Data\NotificationObjectInterface" type="Pragma\PragmaPayWebApi\Model\NotificationObject"/>
+    <preference for="Pragma\PragmaPayWebApi\Api\Data\NotificationRepaymentPeriodInterface" type="Pragma\PragmaPayWebApi\Model\NotificationRepaymentPeriod"/>
+    <preference for="Pragma\PragmaPayWebApi\Api\Data\NotificationItemInterface" type="Pragma\PragmaPayWebApi\Model\NotificationItem"/>
+    <preference for="Pragma\PragmaPayWebApi\Api\Data\NotificationItemValueInterface" type="Pragma\PragmaPayWebApi\Model\NotificationItemValue"/>
+    <preference for="Pragma\PragmaPayWebApi\Api\ConfirmNotifyInterface" type="Pragma\PragmaPayWebApi\Service\ConfirmNotify"/>
+    <preference for="Pragma\PragmaPayWebApi\Api\NotifyOrderProcessorInterface" type="Pragma\PragmaPayWebApi\Service\NotifyOrderProcessor"/>
+    <type name="Pragma\PragmaPayWebApi\Service\ConfirmNotify">
+        <arguments>
+            <argument name="logger" xsi:type="object">PragmaPayConnectionLogger</argument>
+        </arguments>
+    </type>
+</config>
