@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <section id="payment" showInDefault="1" showInWebsite="1" showInStore="1">
+            <resource>Pragma_PragmaPayAdminUi::pragma_payment</resource>
+            <group id="pragma_payment" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>PragmaPay</label>
+                <field id="is_active" translate="label" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enable</label>
+                    <config_path>pragma_payment/general/is_active</config_path>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <group id="connection" translate="label" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Connection</label>
+                    <attribute type="expanded">1</attribute>
+                    <field id="is_sandbox" translate="label" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                        <config_path>pragma_payment/connection/is_sandbox</config_path>
+                        <label>Sandbox mode?</label>
+                        <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                        <depends>
+                            <field id="is_active">1</field>
+                        </depends>
+                    </field>
+                    <field id="api_url" translate="label" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                        <label>Api url</label>
+                        <config_path>pragma_payment/connection/api_url</config_path>
+                        <depends>
+                            <field id="is_sandbox">0</field>
+                        </depends>
+                    </field>
+                    <field id="sandbox_api_url" translate="label" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                        <label>Sandbox Api Url</label>
+                        <config_path>pragma_payment/connection/sandbox_api_url</config_path>
+                        <depends>
+                            <field id="is_sandbox">1</field>
+                        </depends>
+                    </field>
+                    <field id="partner_key" translate="label" type="obscure" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
+                        <label>Partner key</label>
+                        <backend_model>Magento\Config\Model\Config\Backend\Encrypted</backend_model>
+                        <config_path>pragma_payment/connection/partner_key</config_path>
+                        <depends>
+                            <field id="is_sandbox">0</field>
+                        </depends>
+                    </field>
+                    <field id="sandbox_partner_key" translate="label" type="obscure" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
+                        <label>Sandbox Partner key</label>
+                        <backend_model>Magento\Config\Model\Config\Backend\Encrypted</backend_model>
+                        <config_path>pragma_payment/connection/sandbox_partner_key</config_path>
+                        <depends>
+                            <field id="is_sandbox">1</field>
+                        </depends>
+                    </field>
+                    <field id="partner_secret" translate="label" type="obscure" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="1">
+                        <label>Partner Secret</label>
+                        <backend_model>Magento\Config\Model\Config\Backend\Encrypted</backend_model>
+                        <config_path>pragma_payment/connection/partner_secret</config_path>
+                        <depends>
+                            <field id="is_sandbox">0</field>
+                        </depends>
+                    </field>
+                    <field id="sandbox_partner_secret" translate="label" type="obscure" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="1">
+                        <label>Sandbox Partner Secret</label>
+                        <backend_model>Magento\Config\Model\Config\Backend\Encrypted</backend_model>
+                        <config_path>pragma_payment/connection/sandbox_partner_secret</config_path>
+                        <depends>
+                            <field id="is_sandbox">1</field>
+                        </depends>
+                    </field>
+                    <field id="return_url" translate="label" type="text" sortOrder="70" showInDefault="1" showInWebsite="1" showInStore="1">
+                        <label>Success Return URL</label>
+                        <config_path>pragma_payment/connection/return_url</config_path>
+                    </field>
+                    <field id="notification_url" translate="label" type="text" sortOrder="70" showInDefault="1" showInWebsite="1" showInStore="1">
+                        <label>Notification URL</label>
+                        <config_path>pragma_payment/connection/notification_url</config_path>
+                    </field>
+                    <field id="cancel_url" translate="label" type="text" sortOrder="80" showInDefault="1" showInWebsite="1" showInStore="1">
+                        <label>Cancel URL</label>
+                        <config_path>pragma_payment/connection/cancel_url</config_path>
+                    </field>
+                    <field id="log_cart_request" translate="label" type="select" sortOrder="90" showInDefault="1" showInWebsite="1" showInStore="1">
+                        <label>Log cart request</label>
+                        <config_path>pragma_payment/connection/log_cart_request</config_path>
+                        <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    </field>
+                    <depends>
+                        <field id="is_active">1</field>
+                    </depends>
+                </group>
+            </group>
+        </section>
+    </system>
+</config>
