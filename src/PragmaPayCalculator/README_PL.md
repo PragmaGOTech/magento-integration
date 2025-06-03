@@ -2,7 +2,7 @@
 
 ## Opis
 
-Moduł `Pragma_PragmaPayCalculator` dostarcza widgety do wyświetlania kalkulatora PragmaGo w Magento. Widgety te pozwalają sprzedawcom na integrację kalkulatora płatności odroczonych na stronach produktów i koszyka. Moduł wspiera dostosowywanie ustawień widgetów i zapewnia bezproblemową integrację z SDK PragmaGo.
+Moduł `Pragma_PragmaPayCalculator` dostarcza widgety do wyświetlania kalkulatora PragmaGO w Magento. Widgety te pozwalają sprzedawcom na integrację kalkulatora płatności odroczonych na stronach produktów i koszyka. Moduł wspiera dostosowywanie ustawień widgetów i zapewnia bezproblemową integrację z SDK PragmaGO.
 
 ## Szczegóły instalacji
 
@@ -18,10 +18,10 @@ Deweloperzy rozszerzeń mogą wchodzić w interakcję z modułem `Pragma_PragmaP
 
 Moduł `Pragma_PragmaPayCalculator` dostarcza następujące widgety:
 
-### 1. Kalkulator PragmaGo (Produkt)
+### 1. Kalkulator PragmaGO (Produkt)
 
 **Opis:**
-Wyświetla kalkulator PragmaGo na stronach produktów, używając ceny produktu.
+Wyświetla kalkulator PragmaGO na stronach produktów, używając ceny produktu.
 
 **Ustawienia:**
 - **ID Produktu (opcjonalne):** Pozwala określić ID produktu, aby nadpisać domyślny kontekst produktu.
@@ -30,7 +30,7 @@ Wyświetla kalkulator PragmaGo na stronach produktów, używając ceny produktu.
 **Jak skonfigurować w panelu administracyjnym Magento:**
 1. Przejdź do **Zawartość > Widgety** w panelu administracyjnym Magento.
 2. Kliknij **Dodaj widget**.
-3. Wybierz **Kalkulator PragmaGo (Produkt)** jako typ widgetu.
+3. Wybierz **Kalkulator PragmaGO (Produkt)** jako typ widgetu.
 4. Wybierz odpowiedni **Motyw projektowy** i kliknij **Kontynuuj**.
 5. W zakładce **Właściwości widoku sklepu**:
    - Ustaw **Tytuł widgetu**.
@@ -46,10 +46,10 @@ Wyświetla kalkulator PragmaGo na stronach produktów, używając ceny produktu.
 
 ---
 
-### 2. Kalkulator PragmaGo (Koszyk)
+### 2. Kalkulator PragmaGO (Koszyk)
 
 **Opis:**
-Wyświetla kalkulator PragmaGo na stronie koszyka, używając całkowitej wartości koszyka.
+Wyświetla kalkulator PragmaGO na stronie koszyka, używając całkowitej wartości koszyka.
 
 **Ustawienia:**
 - **Szablon:** Definiuje szablon używany do renderowania widgetu. Domyślny szablon to `cart_calculator.phtml`.
@@ -57,7 +57,7 @@ Wyświetla kalkulator PragmaGo na stronie koszyka, używając całkowitej warto�
 **Jak skonfigurować w panelu administracyjnym Magento:**
 1. Przejdź do **Zawartość > Widgety** w panelu administracyjnym Magento.
 2. Kliknij **Dodaj widget**.
-3. Wybierz **Kalkulator PragmaGo (Koszyk)** jako typ widgetu.
+3. Wybierz **Kalkulator PragmaGO (Koszyk)** jako typ widgetu.
 4. Wybierz odpowiedni **Motyw projektowy** i kliknij **Kontynuuj**.
 5. W zakładce **Właściwości widoku sklepu**:
    - Ustaw **Tytuł widgetu**.

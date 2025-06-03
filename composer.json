@@ -1,6 +1,6 @@
 {
     "name": "pragmagotech/magento2-module-pragmapay",
-    "description": "PragmaGo Tech Magento2 Payment method integration",
+    "description": "PragmaGO Tech Magento2 Payment method integration",
     "type": "magento2-module",
     "version": "1.0.0",
     "require": {

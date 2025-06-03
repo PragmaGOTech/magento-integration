@@ -21,16 +21,43 @@ Moduł dodaje następujące funkcjonalności
 * Wersja PHP zgodna z wymaganiami zainstalowanej wersji Magento 2
 
 ## Instalacja
-#### Kopiując pliki na serwer
-1. Pobierz najnowszą wersję [pobierz][external-link-1]
-2. Rozpakuj pobrany plik zip
-3. Skopiuj zawartość katalogu `src` do katalogu `app/code/Pragma` w głownym katalogu instalacja Magento2. **Jeżeli katalog nie istnieje - utwórz go.**
 
-Po instalacji z poziomu konsoli uruchom:
-* bin/magento module:enable Pragma_PragmaPayAdminUi Pragma_PragmaPayCalculator Pragma_PragmaCore Pragma_PragmaFrontendUi Pragma_PragmaWebApi
-* bin/magento setup:upgrade
-* bin/magento setup:di:compile
-* bin/magento setup:static-content:deploy
+Istnieją 2 różne sposoby instalacji rozszerzenia:
+
+* Rozwiązanie #1: Instalacja za pomocą Composera (Zalecane)
+* Rozwiązanie #2: Ręczne kopiowanie plików na serwer (Nie zalecane)
+
+**Ważne:**
+Zalecamy sklonowanie sklepu produkcyjnego na środowisko testowe/staging i wykonanie instalacji najpierw tam.  
+Wykonaj kopię zapasową plików Magento oraz bazy danych sklepu.
+
+#### Instalacja za pomocą Composera
+
+Uruchom następujące polecenia w katalogu głównym Magento 2:
+
+```bash
+composer require pragmagotech/magento2-module-pragmapay
+bin/magento module:enable Pragma_PragmaPayAdminUi Pragma_PragmaPayCalculator Pragma_PragmaCore Pragma_PragmaFrontendUi Pragma_PragmaWebApi
+bin/magento setup:upgrade
+bin/magento setup:di:compile
+bin/magento setup:static-content:deploy
+```
+
+#### Ręczne kopiowanie plików na serwer
+
+1. Pobierz najnowszą wersję [pobierz][external-link-1]
+2. Rozpakuj pobrany plik ZIP
+3. Skopiuj zawartość katalogu `src` do katalogu `app/code/Pragma` w głównym katalogu instalacyjnym Magento 2.  
+   **Jeśli katalog nie istnieje, należy go utworzyć.**
+
+Po instalacji uruchom następujące polecenia w konsoli:
+
+```bash
+bin/magento module:enable Pragma_PragmaPayAdminUi Pragma_PragmaPayCalculator Pragma_PragmaCore Pragma_PragmaFrontendUi Pragma_PragmaWebApi
+bin/magento setup:upgrade
+bin/magento setup:di:compile
+bin/magento setup:static-content:deploy
+```
 
 ## Konfiguracja
 1. Przejdź do panelu administracynjego Magento 2.

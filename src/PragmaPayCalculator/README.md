@@ -2,7 +2,7 @@
 
 ## Description
 
-The `Pragma_PragmaPayCalculator` module provides widgets for displaying the PragmaGo calculator in Magento. These widgets allow merchants to integrate a calculator for deferred payments on product and cart pages. The module supports customization of widget settings and ensures seamless integration with the PragmaGo SDK.
+The `Pragma_PragmaPayCalculator` module provides widgets for displaying the PragmaGO calculator in Magento. These widgets allow merchants to integrate a calculator for deferred payments on product and cart pages. The module supports customization of widget settings and ensures seamless integration with the PragmaGO SDK.
 
 ## Installation details
 
@@ -18,10 +18,10 @@ Extension developers can interact with the `Pragma_PragmaPayCalculator` module. 
 
 The `Pragma_PragmaPayCalculator` module provides the following widgets:
 
-### 1. PragmaGo Calculator (Product)
+### 1. PragmaGO Calculator (Product)
 
 **Description:**
-Displays the PragmaGo calculator on product pages using the product price.
+Displays the PragmaGO calculator on product pages using the product price.
 
 **Settings:**
 - **Product ID (optional):** Allows specifying a product ID to override the default product context.
@@ -30,7 +30,7 @@ Displays the PragmaGo calculator on product pages using the product price.
 **How to Configure in Magento Admin Panel:**
 1. Navigate to **Content > Widgets** in the Magento Admin Panel.
 2. Click **Add Widget**.
-3. Select **PragmaGo Calculator (Product)** as the widget type.
+3. Select **PragmaGO Calculator (Product)** as the widget type.
 4. Choose the desired **Design Theme** and click **Continue**.
 5. In the **Storefront Properties** tab:
    - Set the **Widget Title**.
@@ -46,10 +46,10 @@ Displays the PragmaGo calculator on product pages using the product price.
 
 ---
 
-### 2. PragmaGo Calculator (Cart)
+### 2. PragmaGO Calculator (Cart)
 
 **Description:**
-Displays the PragmaGo calculator on the cart page using the total cart value.
+Displays the PragmaGO calculator on the cart page using the total cart value.
 
 **Settings:**
 - **Template:** Defines the template used for rendering the widget. The default template is `cart_calculator.phtml`.
@@ -57,7 +57,7 @@ Displays the PragmaGo calculator on the cart page using the total cart value.
 **How to Configure in Magento Admin Panel:**
 1. Navigate to **Content > Widgets** in the Magento Admin Panel.
 2. Click **Add Widget**.
-3. Select **PragmaGo Calculator (Cart)** as the widget type.
+3. Select **PragmaGO Calculator (Cart)** as the widget type.
 4. Choose the desired **Design Theme** and click **Continue**.
 5. In the **Storefront Properties** tab:
    - Set the **Widget Title**.

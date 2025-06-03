@@ -2,8 +2,8 @@
 <widgets xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Widget:etc/widget.xsd">
     <widget id="pragma_product_calculator" class="Pragma\PragmaPayCalculator\Block\Widget\ProductCalculatorWidget">
-        <label translate="true">PragmaGo Calculator (Product)</label>
-        <description>Displays the PragmaGo calculator using product price.</description>
+        <label translate="true">PragmaGO Calculator (Product)</label>
+        <description>Displays the PragmaGO calculator using product price.</description>
         <parameters>
             <parameter name="product_id" xsi:type="text" required="false" sort_order="10" visible="true" >
                 <label translate="true">Product ID (optional)</label>
@@ -19,7 +19,7 @@
         </parameters>
     </widget>
     <widget id="pragma_cart_calculator" class="Pragma\PragmaPayCalculator\Block\Widget\CartCalculatorWidget">
-        <label translate="true">PragmaGo Calculator (Cart)</label>
+        <label translate="true">PragmaGO Calculator (Cart)</label>
         <description>Displays the PragmaPay calculator on checkout/cart page.</description>
         <parameters>
             <parameter name="template" xsi:type="text" required="true" visible="false">

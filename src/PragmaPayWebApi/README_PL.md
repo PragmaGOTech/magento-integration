@@ -4,7 +4,7 @@
 
 Moduł `Pragma_PragmaWebUi` dostarcza API do obsługi powiadomień (webhooków) z PragmaPay Gateway. Umożliwia przetwarzanie aktualizacji statusów płatności oraz zarządzanie zamówieniami na podstawie otrzymanych powiadomień.
 
-Aby uzyskać szczegółową dokumentację, zobacz [Dokumentację API PragmaGo](https://pragma-pay.readme.io/reference/powiadomienia-z-systemu-pragmago).
+Aby uzyskać szczegółową dokumentację, zobacz [Dokumentację API PragmaGO](https://pragma-pay.readme.io/reference/powiadomienia-z-systemu-pragmago).
 
 ## Szczegóły instalacji
 
