@@ -1,0 +1,19 @@
+{
+  "name": "pragmagotech/module-pragma-pay-web-api",
+  "version": "1.0.0",
+  "description": "N/A",
+  "type": "magento2-module",
+  "require": {
+    "magento/framework": "^103.0",
+    "magento/module-payment": "^100.4",
+    "pragmagotech/module-pragma-pay-core": "^1.0.0"
+  },
+  "autoload": {
+    "files": [
+      "registration.php"
+    ],
+    "psr-4": {
+      "Pragma\\PragmaPayWebApi\\": ""
+    }
+  }
+}

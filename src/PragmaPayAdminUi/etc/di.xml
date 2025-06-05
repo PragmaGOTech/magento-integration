@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <preference for="Pragma\PragmaPayCore\Api\PragmaPayCartConfigProviderInterface" type="Pragma\PragmaPayAdminUi\Provider\PragmaCartConfigProvider"/>
+    <preference for="Pragma\PragmaPayCore\Api\PragmaConnectionConfigProviderInterface" type="Pragma\PragmaPayAdminUi\Provider\PragmaConnectionConfigProvider"/>
+    <preference for="Pragma\PragmaPayCore\Api\DetailsConfigProviderInterface" type="Pragma\PragmaPayAdminUi\Provider\DetailsConfigProvider"/>
+
+</config>

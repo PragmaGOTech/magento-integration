@@ -1,0 +1,245 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <preference for="Pragma\PragmaPayCore\Api\ApiClientInterface" type="Pragma\PragmaPayCore\Client\ApiClient"/>
+    <preference for="Pragma\PragmaPayCore\Api\AcceptOrderPaymentInterface" type="Pragma\PragmaPayCore\Service\AcceptPayment"/>
+    <preference for="Pragma\PragmaPayCore\Api\CancelOrderPaymentInterface" type="Pragma\PragmaPayCore\Service\CancelPayment"/>
+    <preference for="Pragma\PragmaPayCore\Api\OrderPaymentResolverInterface" type="Pragma\PragmaPayCore\Service\OrderPaymentResolver"/>
+    <preference for="Pragma\PragmaPayCore\Api\TransactionHistoryProviderInterface" type="Pragma\PragmaPayCore\Service\CustomerTransactionHistoryProvider"/>
+    <preference for="Pragma\PragmaPayCore\Api\AuthorizationTokenProviderInterface" type="Pragma\PragmaPayCore\Service\AuthorizationTokenProvider"/>
+
+    <virtualType name="PragmaPayment" type="Magento\Payment\Model\Method\Adapter">
+        <arguments>
+            <argument name="code" xsi:type="string">pragma_payment</argument>
+            <argument name="formBlockType" xsi:type="string">Magento\Payment\Block\Form</argument>
+            <argument name="infoBlockType" xsi:type="string">PragmaPaymentInfo</argument>
+            <argument name="valueHandlerPool" xsi:type="object">PragmaValueHandlerPool</argument>
+            <argument name="commandPool" xsi:type="object">PragmaCommandPool</argument>
+            <argument name="commandExecutor" xsi:type="object">PragmaPaymentCommandManager</argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="PragmaPaymentInfo" type="Magento\Payment\Block\ConfigurableInfo">
+        <arguments>
+            <argument name="data" xsi:type="array">
+                <item name="methodCode" xsi:type="string">pragma_payment</item>
+            </argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="PragmaValueHandlerPool" type="Magento\Payment\Gateway\Config\ValueHandlerPool">
+        <arguments>
+            <argument name="handlers" xsi:type="array">
+                <item name="default" xsi:type="string">PragmaConfigValueHandler</item>
+            </argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="PragmaConfigValueHandler" type="Magento\Payment\Gateway\Config\ConfigValueHandler">
+        <arguments>
+            <argument name="configInterface" xsi:type="object">PragmaConfig</argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="PragmaConfig" type="Magento\Payment\Gateway\Config\Config">
+        <arguments>
+            <argument name="methodCode" xsi:type="string">pragma_payment</argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="PragmaCommandPool" type="Magento\Payment\Gateway\Command\CommandPool">
+        <arguments>
+            <argument name="commands" xsi:type="array">
+                <item name="authorize" xsi:type="string">PragmaPayGatewayPaymentCommand</item>
+                <item name="capture" xsi:type="string">PragmaPayGatewayCaptureCommand</item>
+                <item name="refund" xsi:type="string">PragmaPayGatewayRefundCommand</item>
+                <item name="cancel" xsi:type="string">PragmaPayGatewayCancelCommand</item>
+            </argument>
+        </arguments>
+    </virtualType>
+<!-- Authorization-->
+    <virtualType name="PragmaPayGatewayPaymentCommand" type="Magento\Payment\Gateway\Command\GatewayCommand">
+        <arguments>
+            <argument name="requestBuilder" xsi:type="object">PragmaSubmitRequest</argument>
+            <argument name="handler" xsi:type="object">PragmaResponseHandlerComposite</argument>
+            <argument name="transferFactory" xsi:type="object">Pragma\PragmaPayCore\Gateway\Http\TransferFactory</argument>
+            <argument name="client" xsi:type="object">Pragma\PragmaPayCore\Gateway\Http\PragmaPayClient</argument>
+            <argument name="validator" xsi:type="object">Pragma\PragmaPayCore\Gateway\Validator\PragmaPayCreatePayment</argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="PragmaSubmitRequest" type="Magento\Payment\Gateway\Request\BuilderComposite">
+        <arguments>
+            <argument name="builders" xsi:type="array">
+                <item name="CreatePaymentUriBuilder" xsi:type="string">Pragma\PragmaPayCore\Gateway\Request\CreatePaymentUriBuilder</item>
+                <item name="AuthorizationHeaderBuilder" xsi:type="string">Pragma\PragmaPayCore\Gateway\Request\AuthorizationHeaderBuilder</item>
+                <item name="ClientConfigDataBuilder" xsi:type="string">Pragma\PragmaPayCore\Gateway\Request\ClientConfigDataBuilder</item>
+                <item name="ConnectionInfoBuilder" xsi:type="string">Pragma\PragmaPayCore\Gateway\Request\ConnectionInfoBuilder</item>
+                <item name="CustomerBuilder" xsi:type="string">Pragma\PragmaPayCore\Gateway\Request\CustomerBuilder</item>
+                <item name="OrderInfoBuilder" xsi:type="string">Pragma\PragmaPayCore\Gateway\Request\OrderInfoBuilder</item>
+                <item name="TransactionDataBuilder" xsi:type="string">Pragma\PragmaPayCore\Gateway\Request\TransactionDataBuilder</item>
+            </argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="PragmaResponseHandlerComposite" type="Magento\Payment\Gateway\Response\HandlerChain">
+        <arguments>
+            <argument name="handlers" xsi:type="array">
+                <item name="pragma_payment_action" xsi:type="string">Pragma\PragmaPayCore\Gateway\Response\PragmaPayCreatePayment</item>
+            </argument>
+        </arguments>
+    </virtualType>
+    <!--  End of Authorization-->
+    <!-- Capture-->
+    <virtualType name="PragmaPayGatewayCaptureCommand" type="Magento\Payment\Gateway\Command\GatewayCommand">
+        <arguments>
+            <argument name="requestBuilder" xsi:type="object">PragmaPayGetPaymentStatusRequest</argument>
+            <argument name="transferFactory" xsi:type="object">Pragma\PragmaPayCore\Gateway\Http\TransferFactory</argument>
+            <argument name="client" xsi:type="object">Pragma\PragmaPayCore\Gateway\Http\PragmaPayClient</argument>
+            <argument name="validator" xsi:type="object">Pragma\PragmaPayCore\Gateway\Validator\PragmaPayGetPaymentStatus</argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="GetPaymentUriRequestBuilder" type="Pragma\PragmaPayCore\Gateway\Request\UriWithPaymentIdPathParamBuilder">
+        <arguments>
+            <argument name="paymentUri" xsi:type="const">Pragma\PragmaPayCore\Gateway\Request\UriWithPaymentIdPathParamBuilder::GET_PAYMENT_URI</argument>
+            <argument name="sandboxPaymentUri" xsi:type="const">Pragma\PragmaPayCore\Gateway\Request\UriWithPaymentIdPathParamBuilder::GET_SANDBOX_PAYMENT_URI</argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="PragmaPayGetPaymentStatusRequest" type="Magento\Payment\Gateway\Request\BuilderComposite">
+        <arguments>
+            <argument name="builders" xsi:type="array">
+                <item name="GetPaymentUriRequestBuilder" xsi:type="string">GetPaymentUriRequestBuilder</item>
+                <item name="GetMethodBuilder" xsi:type="string">Pragma\PragmaPayCore\Gateway\Request\GetMethodBuilder</item>
+                <item name="AuthorizationHeaderBuilder" xsi:type="string">Pragma\PragmaPayCore\Gateway\Request\AuthorizationHeaderBuilder</item>
+                <item name="ClientConfigDataBuilder" xsi:type="string">Pragma\PragmaPayCore\Gateway\Request\ClientConfigDataBuilder</item>
+            </argument>
+        </arguments>
+    </virtualType>
+    <!--  End of Capture-->
+    <!-- Refund-->
+    <virtualType name="PragmaPayGatewayRefundCommand" type="Magento\Payment\Gateway\Command\GatewayCommand">
+        <arguments>
+            <argument name="requestBuilder" xsi:type="object">PragmaPayRefundPaymentRequest</argument>
+            <argument name="handler" xsi:type="object">PragmaPayRefundResponse</argument>
+            <argument name="transferFactory" xsi:type="object">Pragma\PragmaPayCore\Gateway\Http\TransferFactory</argument>
+            <argument name="client" xsi:type="object">Pragma\PragmaPayCore\Gateway\Http\PragmaPayClient</argument>
+            <argument name="validator" xsi:type="object">Pragma\PragmaPayCore\Gateway\Validator\PragmaPayRefundPayment</argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="RefundUriRequestBuilder" type="Pragma\PragmaPayCore\Gateway\Request\UriWithPaymentIdPathParamBuilder">
+        <arguments>
+            <argument name="paymentUri" xsi:type="const">Pragma\PragmaPayCore\Gateway\Request\UriWithPaymentIdPathParamBuilder::REFUND_PAYMENT_URI</argument>
+            <argument name="sandboxPaymentUri" xsi:type="const">Pragma\PragmaPayCore\Gateway\Request\UriWithPaymentIdPathParamBuilder::REFUND_SANDBOX_PAYMENT_URI</argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="PragmaPayRefundPaymentRequest" type="Magento\Payment\Gateway\Request\BuilderComposite">
+        <arguments>
+            <argument name="builders" xsi:type="array">
+                <item name="RefundUriRequestBuilder" xsi:type="string">RefundUriRequestBuilder</item>
+                <item name="PatchMethodBuilder" xsi:type="string">Pragma\PragmaPayCore\Gateway\Request\PatchMethodBuilder</item>
+                <item name="AuthorizationHeaderBuilder" xsi:type="string">Pragma\PragmaPayCore\Gateway\Request\AuthorizationHeaderBuilder</item>
+                <item name="ClientConfigDataBuilder" xsi:type="string">Pragma\PragmaPayCore\Gateway\Request\ClientConfigDataBuilder</item>
+                <item name="RefundInfoBuilder" xsi:type="string">Pragma\PragmaPayCore\Gateway\Request\RefundInfoBuilder</item>
+            </argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="PragmaPayRefundResponse" type="Magento\Payment\Gateway\Response\HandlerChain">
+        <arguments>
+            <argument name="handlers" xsi:type="array">
+                <item name="pragma_refund_action" xsi:type="string">Pragma\PragmaPayCore\Gateway\Response\PragmaPayRefundPayment</item>
+            </argument>
+        </arguments>
+    </virtualType>
+    <!--  End of Refund-->
+    <!-- Cancel-->
+    <virtualType name="PragmaPayGatewayCancelCommand" type="Magento\Payment\Gateway\Command\GatewayCommand">
+        <arguments>
+            <argument name="requestBuilder" xsi:type="object">PragmaPayCancelPaymentRequest</argument>
+            <argument name="handler" xsi:type="object">PragmaPayCancelResponse</argument>
+            <argument name="transferFactory" xsi:type="object">Pragma\PragmaPayCore\Gateway\Http\TransferFactory</argument>
+            <argument name="client" xsi:type="object">Pragma\PragmaPayCore\Gateway\Http\PragmaPayClient</argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="CancelUriRequestBuilder" type="Pragma\PragmaPayCore\Gateway\Request\UriWithPaymentIdPathParamBuilder">
+        <arguments>
+            <argument name="paymentUri" xsi:type="const">Pragma\PragmaPayCore\Gateway\Request\UriWithPaymentIdPathParamBuilder::CANCEL_PAYMENT_URI</argument>
+            <argument name="sandboxPaymentUri" xsi:type="const">Pragma\PragmaPayCore\Gateway\Request\UriWithPaymentIdPathParamBuilder::CANCEL_SANDBOX_PAYMENT_URI</argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="PragmaPayCancelPaymentRequest" type="Magento\Payment\Gateway\Request\BuilderComposite">
+        <arguments>
+            <argument name="builders" xsi:type="array">
+                <item name="CancelUriRequestBuilder" xsi:type="string">CancelUriRequestBuilder</item>
+                <item name="PatchMethodBuilder" xsi:type="string">Pragma\PragmaPayCore\Gateway\Request\PatchMethodBuilder</item>
+                <item name="AuthorizationHeaderBuilder" xsi:type="string">Pragma\PragmaPayCore\Gateway\Request\AuthorizationHeaderBuilder</item>
+                <item name="ClientConfigDataBuilder" xsi:type="string">Pragma\PragmaPayCore\Gateway\Request\ClientConfigDataBuilder</item>
+            </argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="PragmaPayCancelResponse" type="Magento\Payment\Gateway\Response\HandlerChain">
+        <arguments>
+            <argument name="handlers" xsi:type="array">
+                <item name="pragma_cancel_action" xsi:type="string">Pragma\PragmaPayCore\Gateway\Response\PragmaPayCancelPayment</item>
+            </argument>
+        </arguments>
+    </virtualType>
+    <!--  End of Cancel-->
+    <!-- Cancel-->
+    <virtualType name="PragmaPayGatewayCancelCommand" type="Magento\Payment\Gateway\Command\GatewayCommand">
+        <arguments>
+            <argument name="requestBuilder" xsi:type="object">PragmaPayCancelPaymentRequest</argument>
+            <argument name="transferFactory" xsi:type="object">Pragma\PragmaPayCore\Gateway\Http\TransferFactory</argument>
+            <argument name="client" xsi:type="object">Pragma\PragmaPayCore\Gateway\Http\PragmaPayClient</argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="CancelUriRequestBuilder" type="Pragma\PragmaPayCore\Gateway\Request\UriWithPaymentIdPathParamBuilder">
+        <arguments>
+            <argument name="paymentUri" xsi:type="const">Pragma\PragmaPayCore\Gateway\Request\UriWithPaymentIdPathParamBuilder::CANCEL_PAYMENT_URI</argument>
+            <argument name="sandboxPaymentUri" xsi:type="const">Pragma\PragmaPayCore\Gateway\Request\UriWithPaymentIdPathParamBuilder::CANCEL_SANDBOX_PAYMENT_URI</argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="PragmaPayCancelPaymentRequest" type="Magento\Payment\Gateway\Request\BuilderComposite">
+        <arguments>
+            <argument name="builders" xsi:type="array">
+                <item name="CancelUriRequestBuilder" xsi:type="string">CancelUriRequestBuilder</item>
+                <item name="PatchMethodBuilder" xsi:type="string">Pragma\PragmaPayCore\Gateway\Request\PatchMethodBuilder</item>
+                <item name="AuthorizationHeaderBuilder" xsi:type="string">Pragma\PragmaPayCore\Gateway\Request\AuthorizationHeaderBuilder</item>
+                <item name="ClientConfigDataBuilder" xsi:type="string">Pragma\PragmaPayCore\Gateway\Request\ClientConfigDataBuilder</item>
+            </argument>
+        </arguments>
+    </virtualType>
+    <!--  End of Cancel-->
+    <virtualType name="PragmaPayConnectionLogger" type="Magento\Framework\Logger\Monolog">
+        <arguments>
+            <argument name="handlers" xsi:type="array">
+                <item name="error" xsi:type="object">Pragma\PragmaPayCore\Logger\ConnectionHandler</item>
+            </argument>
+        </arguments>
+    </virtualType>
+    <type name="Pragma\PragmaPayCore\Client\ApiClient">
+        <arguments>
+            <argument name="logger" xsi:type="object">PragmaPayConnectionLogger</argument>
+        </arguments>
+    </type>
+    <type name="Pragma\PragmaPayCore\Model\AvailabilityChecker\CompositeAvailabilityChecker">
+        <arguments>
+            <argument name="availabilityCheckers" xsi:type="array">
+                <item name="isPaymentActive" xsi:type="object">Pragma\PragmaPayCore\Model\AvailabilityChecker\IsPaymentMethodActive</item>
+                <item name="VatId" xsi:type="object">Pragma\PragmaPayCore\Model\AvailabilityChecker\VatId</item>
+                <item name="Currency" xsi:type="object">Pragma\PragmaPayCore\Model\AvailabilityChecker\Currency</item>
+                <item name="GrandTotalThreshold" xsi:type="object">Pragma\PragmaPayCore\Model\AvailabilityChecker\GrandTotalThreshold</item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Pragma\PragmaPayCore\Observer\IsPragmaPayActiveObserver">
+        <arguments>
+            <argument name="availabilityChecker" xsi:type="object">Pragma\PragmaPayCore\Model\AvailabilityChecker\CompositeAvailabilityChecker</argument>
+        </arguments>
+    </type>
+    <type name="Pragma\PragmaPayCore\Gateway\Request\RefundInfoBuilder">
+        <arguments>
+            <argument name="creditMemoIncrementIdGenerator" xsi:type="object">Pragma\PragmaPayCore\Service\CreditMemoIncrementIdGenerator\Proxy</argument>
+        </arguments>
+    </type>
+
+
+    <virtualType name="PragmaPaymentCommandManager" type="Magento\Payment\Gateway\Command\CommandManager">
+        <arguments>
+            <argument name="commandPool" xsi:type="object">PragmaCommandPool</argument>
+            <argument name="paymentDataObjectFactory" xsi:type="object">Pragma\PragmaPayCore\Gateway\Data\Order\PaymentDataObjectFactory</argument>
+        </arguments>
+    </virtualType>
+</config>
