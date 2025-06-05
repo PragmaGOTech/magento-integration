@@ -40,7 +40,7 @@ Run the following command in Magento 2 root folder:
 * bin/magento setup:static-content:deploy
 
 #### Copying files to the server
-1. Download the latest version [download][external-link-1]
+1. Download the latest version [download](https://github.com/PragmaGOTech/magento-integration/archive/refs/heads/master.zip)
 2. Unzip the downloaded zip file
 3. Copy the contents of the `src` directory into the `app/code/Pragma` directory within the main Magento2 installation directory. **If the directory does not exist, create it.**
 
@@ -97,5 +97,8 @@ The PragmaPay deferred payment method for businesses appears in the order summar
 4. Set **Show VAT Number on Storefront** = **yes**.
 5. Press the **Save config** button to save your changes.
 
-<!--external links:-->
-[external-link-1]: 
+## Contact
+For questions, please contact us through:
+- Form: https://pragmago.com/contact/
+- E-mail: partnerstwo@pragmago.pl
+- Telefon: +48 801020130

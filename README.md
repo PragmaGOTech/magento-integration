@@ -45,7 +45,7 @@ bin/magento setup:static-content:deploy
 
 #### Ręczne kopiowanie plików na serwer
 
-1. Pobierz najnowszą wersję [pobierz][external-link-1]
+1. Pobierz najnowszą wersję [pobierz](https://github.com/PragmaGOTech/magento-integration/archive/refs/heads/master.zip)
 2. Rozpakuj pobrany plik ZIP
 3. Skopiuj zawartość katalogu `src` do katalogu `app/code/Pragma` w głównym katalogu instalacyjnym Magento 2.  
    **Jeśli katalog nie istnieje, należy go utworzyć.**
@@ -106,6 +106,8 @@ Metoda płatności Pragma - odroczone płatności dla firm się w podsumowaniu z
 4. **Show VAT Number on Storefront** = **yes**
 5. Aby zapisać wprowadzone zmiany należy wcisnąć przycisk **Save config**.
 
-
-<!--external links:-->
-[external-link-1]: 
+## Kontakt
+W przypadku pytań prosimy o kontakt po przez:
+- Formularz: https://pragmago.pl/kontakt/
+- E-mail: partnerstwo@pragmago.pl
+- Telefon: +48 801020130
