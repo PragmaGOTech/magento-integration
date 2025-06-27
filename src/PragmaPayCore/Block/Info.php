@@ -5,11 +5,14 @@ declare(strict_types=1);
 namespace Pragma\PragmaPayCore\Block;
 
 use Magento\Framework\DataObject;
-use Magento\Framework\Phrase;
 use Magento\Payment\Block\ConfigurableInfo;
 
 class Info extends ConfigurableInfo
 {
+    /**
+     * @param $transport
+     * @return DataObject|null
+     */
     protected function _prepareSpecificInformation($transport = null)
     {
         $transport = parent::_prepareSpecificInformation($transport);
@@ -20,11 +23,12 @@ class Info extends ConfigurableInfo
 
         return $transport;
     }
+
     /**
      * Returns label
      *
      * @param string $field
-     * @return Phrase
+     * @return string
      */
     protected function getLabel($field): string
     {
