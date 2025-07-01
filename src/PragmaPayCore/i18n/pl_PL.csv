@@ -21,3 +21,6 @@
 "month","miesiąc"
 "The refund transaction %1 valid till %2 was processed on PragmaPay side","Transakcja zwrotu %1 ważna do %2 została przetworzona po stronie PragmaPay"
 "Link for refunding: %1","Link do zwrotu: %1"
+"Payment Link","Link do płatności"
+"Payment UUID","UUID płatności"
+"The order was placed using %1.","Zamówienie zostało złożone przy użyciu %1."

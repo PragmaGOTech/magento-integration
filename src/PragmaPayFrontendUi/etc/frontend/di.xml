@@ -13,4 +13,11 @@
             <argument name="checkoutSession" xsi:type="object">Magento\Checkout\Model\Session\Proxy</argument>
         </arguments>
     </type>
+    <type name="Pragma\PragmaPayCore\Block\Info">
+        <arguments>
+            <argument name="data" xsi:type="array">
+                <item name="hideOnFront" xsi:type="boolean">true</item>
+            </argument>
+        </arguments>
+    </type>
 </config>
