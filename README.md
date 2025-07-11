@@ -1,4 +1,4 @@
-# Moduł PragmaPay - odroczone płatności dla firm dla Magento 2 w wersji ^2.4.5
+# Moduł PragmaPay - odroczone płatności dla firm dla Magento 2 w wersji ^2.4.4
 
 ## Spis treści
 
@@ -10,7 +10,7 @@
 
 ## Opis
 Moduł płatności PragmaPay - odroczone płatności dla firmo.
-Moduł współpracuje z Magento 2 w wersji 2.4.x
+Moduł współpracuje z Magento 2 w wersji ^2.4.4
 
 Moduł dodaje następujące funkcjonalności
 * Utworzenie płatności w sytemie odroczonej płatności PragmaPay
@@ -37,7 +37,7 @@ Uruchom następujące polecenia w katalogu głównym Magento 2:
 
 ```bash
 composer require pragmagotech/magento2-module-pragmapay
-bin/magento module:enable Pragma_PragmaPayAdminUi Pragma_PragmaPayCalculator Pragma_PragmaCore Pragma_PragmaFrontendUi Pragma_PragmaWebApi
+bin/magento module:enable Pragma_PragmaPayAdminUi Pragma_PragmaPayCalculator Pragma_PragmaPayCore Pragma_PragmaPayFrontendUi Pragma_PragmaPayWebApi
 bin/magento setup:upgrade
 bin/magento setup:di:compile
 bin/magento setup:static-content:deploy
@@ -53,7 +53,7 @@ bin/magento setup:static-content:deploy
 Po instalacji uruchom następujące polecenia w konsoli:
 
 ```bash
-bin/magento module:enable Pragma_PragmaPayAdminUi Pragma_PragmaPayCalculator Pragma_PragmaCore Pragma_PragmaFrontendUi Pragma_PragmaWebApi
+bin/magento module:enable Pragma_PragmaPayAdminUi Pragma_PragmaPayCalculator Pragma_PragmaPayCore Pragma_PragmaPayFrontendUi Pragma_PragmaPayWebApi
 bin/magento setup:upgrade
 bin/magento setup:di:compile
 bin/magento setup:static-content:deploy

@@ -1,4 +1,4 @@
-# PragmaPay Module - Deferred Payments for Companies for Magento 2 version ^2.4.5
+# PragmaPay Module - Deferred Payments for Companies for Magento 2 version ^2.4.4
 
 ## Table of Contents
 
@@ -10,7 +10,7 @@
 
 ## Description
 PragmaPay payment module – deferred payments for businesses.  
-This module is compatible with Magento 2 version 2.4.x
+This module is compatible with Magento 2 version ^2.4.4
 
 The module provides the following functionalities:
 * Creating payments in the deferred payment system PragmaPay
@@ -34,7 +34,7 @@ Back up Magento files and the store database.
 Run the following command in Magento 2 root folder:
 
 * composer require pragmagotech/magento2-module-pragmapay
-* bin/magento module:enable Pragma_PragmaPayAdminUi Pragma_PragmaPayCalculator Pragma_PragmaCore Pragma_PragmaFrontendUi Pragma_PragmaWebApi
+* bin/magento module:enable Pragma_PragmaPayAdminUi Pragma_PragmaPayCalculator Pragma_PragmaPayCore Pragma_PragmaPayFrontendUi Pragma_PragmaPayWebApi
 * bin/magento setup:upgrade
 * bin/magento setup:di:compile
 * bin/magento setup:static-content:deploy
@@ -45,7 +45,7 @@ Run the following command in Magento 2 root folder:
 3. Copy the contents of the `src` directory into the `app/code/Pragma` directory within the main Magento2 installation directory. **If the directory does not exist, create it.**
 
 After installation, run the following commands from the console:
-* bin/magento module:enable Pragma_PragmaPayAdminUi Pragma_PragmaPayCalculator Pragma_PragmaCore Pragma_PragmaFrontendUi Pragma_PragmaWebApi
+* bin/magento module:enable Pragma_PragmaPayAdminUi Pragma_PragmaPayCalculator Pragma_PragmaPayCore Pragma_PragmaPayFrontendUi Pragma_PragmaPayWebApi
 * bin/magento setup:upgrade
 * bin/magento setup:di:compile
 * bin/magento setup:static-content:deploy
