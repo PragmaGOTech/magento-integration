@@ -13,12 +13,20 @@ use Pragma\PragmaPayCore\Api\OrderPaymentResolverInterface;
 
 class OrderPaymentResolver implements OrderPaymentResolverInterface
 {
-    public function __construct(
-        private readonly SearchCriteriaBuilder $searchCriteriaBuilder,
-        private readonly TransactionRepositoryInterface $transactionRepository,
-        private readonly OrderPaymentRepositoryInterface $paymentRepository,
-        private readonly GenerateUuid5 $generateUuid5
-    ) {
+    private SearchCriteriaBuilder $searchCriteriaBuilder;
+
+    private TransactionRepositoryInterface $transactionRepository;
+
+    private OrderPaymentRepositoryInterface $paymentRepository;
+
+    private GenerateUuid5 $generateUuid5;
+
+    public function __construct(SearchCriteriaBuilder $searchCriteriaBuilder, TransactionRepositoryInterface $transactionRepository, OrderPaymentRepositoryInterface $paymentRepository, GenerateUuid5 $generateUuid5)
+    {
+        $this->searchCriteriaBuilder = $searchCriteriaBuilder;
+        $this->transactionRepository = $transactionRepository;
+        $this->paymentRepository = $paymentRepository;
+        $this->generateUuid5 = $generateUuid5;
     }
 
     public function execute(string $pragmaPaymentId, string $orderIncrementUuid): ?Payment
@@ -34,7 +42,7 @@ class OrderPaymentResolver implements OrderPaymentResolverInterface
         }
         /** @var Payment $payment */
         $payment = $this->paymentRepository->get($transaction->getPaymentId());
-        if ($this->generateUuid5->execute((string)$payment->getOrder()?->getIncrementId()) !== $orderIncrementUuid) {
+        if ($this->generateUuid5->execute((string)(($nullsafeVariable1 = $payment->getOrder()) ? $nullsafeVariable1->getIncrementId() : null)) !== $orderIncrementUuid) {
             return null;
         }
 

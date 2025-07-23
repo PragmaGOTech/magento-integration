@@ -19,20 +19,28 @@ class CancelPayment implements CancelOrderPaymentInterface
 {
     public const PRAGMA_PAY_CANCELED_PAYMENT = 'pragma_pay_canceled_payment';
 
-    public function __construct(
-        private readonly EventManager $eventManager,
-        private readonly Transaction $transaction,
-        private readonly OrderPaymentResolverInterface $orderPaymentResolver,
-        private readonly SearchCriteriaBuilder $searchCriteriaBuilder,
-        private readonly TransactionRepositoryInterface $transactionRepository,
-        private readonly OrderRepositoryInterface $orderRepository,
-    ) {
+    private EventManager $eventManager;
+
+    private Transaction $transaction;
+
+    private OrderPaymentResolverInterface $orderPaymentResolver;
+
+    private SearchCriteriaBuilder $searchCriteriaBuilder;
+
+    private TransactionRepositoryInterface $transactionRepository;
+
+    private OrderRepositoryInterface $orderRepository;
+
+    public function __construct(EventManager $eventManager, Transaction $transaction, OrderPaymentResolverInterface $orderPaymentResolver, SearchCriteriaBuilder $searchCriteriaBuilder, TransactionRepositoryInterface $transactionRepository, OrderRepositoryInterface $orderRepository)
+    {
+        $this->eventManager = $eventManager;
+        $this->transaction = $transaction;
+        $this->orderPaymentResolver = $orderPaymentResolver;
+        $this->searchCriteriaBuilder = $searchCriteriaBuilder;
+        $this->transactionRepository = $transactionRepository;
+        $this->orderRepository = $orderRepository;
     }
 
-    /**
-     * @throws CommandException
-     * @throws LocalizedException
-     */
     public function execute(string $paymentId, string $orderIncrementUuid): void
     {
         $payment = $this->orderPaymentResolver->execute($paymentId, $orderIncrementUuid);

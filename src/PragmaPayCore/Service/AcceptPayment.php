@@ -14,17 +14,19 @@ class AcceptPayment implements AcceptOrderPaymentInterface
 {
     public const PRAGMA_PAY_FINANCED_PAYMENT = 'pragma_pay_financed_payment';
 
-    public function __construct(
-        private readonly EventManager $eventManager,
-        private readonly Transaction $transaction,
-        private readonly OrderPaymentResolverInterface $orderPaymentResolver,
-    ) {
+    private EventManager $eventManager;
+
+    private Transaction $transaction;
+
+    private OrderPaymentResolverInterface $orderPaymentResolver;
+
+    public function __construct(EventManager $eventManager, Transaction $transaction, OrderPaymentResolverInterface $orderPaymentResolver)
+    {
+        $this->eventManager = $eventManager;
+        $this->transaction = $transaction;
+        $this->orderPaymentResolver = $orderPaymentResolver;
     }
 
-    /**
-     * @throws CommandException
-     * @throws LocalizedException
-     */
     public function execute(string $paymentId, float $amount, string $orderIncrementUuid): void
     {
         $payment = $this->orderPaymentResolver->execute($paymentId, $orderIncrementUuid);

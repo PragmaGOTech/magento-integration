@@ -15,16 +15,20 @@ class GetPostPlaceOrderData implements HttpGetActionInterface
 {
     private const SUCCESS_FIELD = 'success';
 
-    public function __construct(
-        private readonly ResultFactory $resultFactory,
-        private readonly Session $checkoutSession,
-        private readonly UrlInterface $url
-    ) {
+
+    private ResultFactory $resultFactory;
+
+    private Session $checkoutSession;
+
+    private UrlInterface $url;
+
+    public function __construct(ResultFactory $resultFactory, Session $checkoutSession, UrlInterface $url)
+    {
+        $this->resultFactory = $resultFactory;
+        $this->checkoutSession = $checkoutSession;
+        $this->url = $url;
     }
 
-    /**
-     * @inheritdoc
-     */
     public function execute()
     {
         $result = $this->resultFactory->create(ResultFactory::TYPE_JSON);

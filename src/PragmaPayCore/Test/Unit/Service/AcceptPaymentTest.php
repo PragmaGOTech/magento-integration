@@ -55,10 +55,14 @@ class AcceptPaymentTest extends TestCase
         $addObjectCallCount = 0;
         $this->transaction->method('addObject')
             ->willReturnCallback(function ($object) use (&$addObjectCallCount, $payment, $order) {
-                match ($addObjectCallCount++) {
-                    0 => $this->assertSame($payment, $object),
-                    1 => $this->assertSame($order, $object),
-                };
+                switch ($addObjectCallCount++) {
+                    case 0:
+                        $this->assertSame($payment, $object);
+                        break;
+                    case 1:
+                        $this->assertSame($order, $object);
+                        break;
+                }
                 return $this->transaction;
             });
 

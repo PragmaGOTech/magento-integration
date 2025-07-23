@@ -11,9 +11,11 @@ class DetailsConfigProvider implements DetailsConfigProviderInterface
 {
     public const DETAILS_TITLE = 'pragma_payment/general/title';
 
-    public function __construct(
-        private readonly ScopeConfigInterface $scopeConfig,
-    ) {
+    private ScopeConfigInterface $scopeConfig;
+
+    public function __construct(ScopeConfigInterface $scopeConfig)
+    {
+        $this->scopeConfig = $scopeConfig;
     }
 
     public function getTitle(int $storeId): string

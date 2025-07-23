@@ -8,14 +8,14 @@ use Magento\Sales\Api\Data\OrderAddressInterface;
 
 class AddressAdapter extends MagentoAddressAdapter
 {
-    public function __construct(private readonly OrderAddressInterface $address)
+    private OrderAddressInterface $address;
+
+    public function __construct(OrderAddressInterface $address)
     {
+        $this->address = $address;
         parent::__construct($address);
     }
 
-    /**
-     * @return array
-     */
     public function getStreet(): array
     {
         $street = $this->address->getStreet();
@@ -23,9 +23,6 @@ class AddressAdapter extends MagentoAddressAdapter
         return empty($street) ? [] : $street;
     }
 
-    /**
-     * @return string|null
-     */
     public function getVatId(): ?string
     {
         $vatId = $this->address->getVatId();

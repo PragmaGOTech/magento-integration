@@ -10,8 +10,11 @@ use Magento\Payment\Gateway\Http\TransferInterface;
 
 class TransferFactory implements TransferFactoryInterface
 {
-    public function __construct(private readonly TransferBuilder $transferBuilder)
+    private TransferBuilder $transferBuilder;
+
+    public function __construct(TransferBuilder $transferBuilder)
     {
+        $this->transferBuilder = $transferBuilder;
     }
 
     public function create(array $request): TransferInterface

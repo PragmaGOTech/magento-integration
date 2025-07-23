@@ -8,7 +8,6 @@ use Magento\Framework\Data\OptionSourceInterface;
 
 class Installments implements OptionSourceInterface
 {
-
     public function toOptionArray(): array
     {
         return [

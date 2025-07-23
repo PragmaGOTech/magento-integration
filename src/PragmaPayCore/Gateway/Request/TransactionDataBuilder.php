@@ -12,10 +12,14 @@ use Pragma\PragmaPayCore\Client\RequestManager;
 
 class TransactionDataBuilder implements BuilderInterface
 {
-    public function __construct(
-        private readonly TransactionHistory $orderHistoryProvider,
-        private readonly RequestManager $requestManager,
-    ) {
+    private TransactionHistory $orderHistoryProvider;
+
+    private RequestManager $requestManager;
+
+    public function __construct(TransactionHistory $orderHistoryProvider, RequestManager $requestManager)
+    {
+        $this->orderHistoryProvider = $orderHistoryProvider;
+        $this->requestManager = $requestManager;
     }
 
     public function build(array $buildSubject): array

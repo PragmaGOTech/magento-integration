@@ -48,11 +48,14 @@ class PragmaPayCheckoutConfigProviderTest extends TestCase
         $this->storeManager->method('getStore')->willReturn($store);
         $this->connectionConfigProvider->method('isActive')->with($storeId)->willReturn(true);
         $this->assetRepository->method('getUrl')->willReturnCallback(function (string $route) {
-            return match ($route) {
-                'Pragma_PragmaPayFrontendUi::images/logo.png' => 'https://example.com/logo.png',
-                'Pragma_PragmaPayFrontendUi::images/logo-dark.png' => 'https://example.com/logo-dark.png',
-                default => null,
-            };
+            switch ($route) {
+                case 'Pragma_PragmaPayFrontendUi::images/logo.png':
+                    return 'https://example.com/logo.png';
+                case 'Pragma_PragmaPayFrontendUi::images/logo-dark.png':
+                    return 'https://example.com/logo-dark.png';
+                default:
+                    return null;
+            }
         });
         $this->resolver->method('getLocale')->willReturn('en_US');
 

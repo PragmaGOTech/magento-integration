@@ -14,10 +14,22 @@ use Pragma\PragmaPayCore\Observer\IsPragmaPayActiveObserver;
 
 class IsPragmaPayActiveObserverTest extends TestCase
 {
-    private Observer|MockObject $observer;
-    private AvailabilityCheckerInterface|MockObject $availabilityChecker;
-    private DataObject|MockObject $dataObject;
-    private Adapter|MockObject $adapter;
+    /**
+     * @var \Magento\Framework\Event\Observer|\PHPUnit\Framework\MockObject\MockObject
+     */
+    private $observer;
+    /**
+     * @var \Pragma\PragmaPayCore\Model\AvailabilityChecker\AvailabilityCheckerInterface|\PHPUnit\Framework\MockObject\MockObject
+     */
+    private $availabilityChecker;
+    /**
+     * @var \Magento\Framework\DataObject|\PHPUnit\Framework\MockObject\MockObject
+     */
+    private $dataObject;
+    /**
+     * @var \Magento\Payment\Model\Method\Adapter|\PHPUnit\Framework\MockObject\MockObject
+     */
+    private $adapter;
     private IsPragmaPayActiveObserver $isPragmaPayActiveObserver;
 
     protected function setUp(): void

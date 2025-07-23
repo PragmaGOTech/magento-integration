@@ -5,9 +5,5 @@ namespace Pragma\PragmaPayCore\Api;
 
 interface AuthorizationTokenProviderInterface
 {
-    /**
-     * @param int|null $storeId
-     * @return string|null
-     */
     public function getAccessToken(?int $storeId): ?string;
 }

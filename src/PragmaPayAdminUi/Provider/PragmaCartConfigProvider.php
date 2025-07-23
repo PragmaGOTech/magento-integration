@@ -12,8 +12,11 @@ class PragmaCartConfigProvider implements PragmaPayCartConfigProviderInterface
     private const MIN_ORDER_TOTAL = 'pragma_payment/cart/min_order_total';
     private const MAX_ORDER_TOTAL = 'pragma_payment/cart/max_order_total';
 
-    public function __construct(private readonly ScopeConfigInterface $scopeConfig)
+    private ScopeConfigInterface $scopeConfig;
+
+    public function __construct(ScopeConfigInterface $scopeConfig)
     {
+        $this->scopeConfig = $scopeConfig;
     }
 
     public function getMinOrderTotal(int $storeId): float

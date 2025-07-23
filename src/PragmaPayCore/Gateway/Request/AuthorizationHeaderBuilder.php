@@ -10,9 +10,11 @@ use Pragma\PragmaPayCore\Api\AuthorizationTokenProviderInterface;
 
 class AuthorizationHeaderBuilder implements BuilderInterface
 {
-    public function __construct(
-        private readonly AuthorizationTokenProviderInterface $authorizationTokenProvider,
-    ) {
+    private AuthorizationTokenProviderInterface $authorizationTokenProvider;
+
+    public function __construct(AuthorizationTokenProviderInterface $authorizationTokenProvider)
+    {
+        $this->authorizationTokenProvider = $authorizationTokenProvider;
     }
 
     public function build(array $buildSubject): array

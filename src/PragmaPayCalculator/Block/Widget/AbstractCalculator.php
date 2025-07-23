@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Pragma\PragmaPayCalculator\Block\Widget;
@@ -12,12 +13,18 @@ use Pragma\PragmaPayCore\Api\PragmaConnectionConfigProviderInterface;
 
 abstract class AbstractCalculator extends Template implements BlockInterface
 {
+    protected StoreManagerInterface $storeManager;
+
+    protected PragmaConnectionConfigProviderInterface $connectionConfigProvider;
+
     public function __construct(
         Context $context,
-        protected StoreManagerInterface $storeManager,
-        protected PragmaConnectionConfigProviderInterface $connectionConfigProvider,
+        StoreManagerInterface $storeManager,
+        PragmaConnectionConfigProviderInterface $connectionConfigProvider,
         array $data = []
     ) {
+        $this->storeManager = $storeManager;
+        $this->connectionConfigProvider = $connectionConfigProvider;
         parent::__construct($context, $data);
     }
 
@@ -25,7 +32,7 @@ abstract class AbstractCalculator extends Template implements BlockInterface
     {
         try {
             $storeId = (int)$this->storeManager->getStore()->getId();
-        } catch (NoSuchEntityException) {
+        } catch (NoSuchEntityException $exception) {
             $storeId = 0;
         }
         return $this->connectionConfigProvider->getPartnerKey($storeId);

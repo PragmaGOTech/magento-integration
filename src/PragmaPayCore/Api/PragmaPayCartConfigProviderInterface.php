@@ -10,5 +10,6 @@ interface PragmaPayCartConfigProviderInterface
     public const MAXIMUM_AMOUNT = 50000;
 
     public function getMinOrderTotal(int $storeId): float;
+
     public function getMaxOrderTotal(int $storeId): float;
 }

@@ -8,8 +8,11 @@ use Pragma\PragmaPayCore\Api\PragmaPayCartConfigProviderInterface;
 
 class GrandTotalThreshold implements AvailabilityCheckerInterface
 {
-    public function __construct(private readonly PragmaPayCartConfigProviderInterface $cartConfigProvider)
+    private PragmaPayCartConfigProviderInterface $cartConfigProvider;
+
+    public function __construct(PragmaPayCartConfigProviderInterface $cartConfigProvider)
     {
+        $this->cartConfigProvider = $cartConfigProvider;
     }
 
     public function execute(Quote $quote): bool

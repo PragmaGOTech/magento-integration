@@ -157,22 +157,6 @@
             <argument name="client" xsi:type="object">Pragma\PragmaPayCore\Gateway\Http\PragmaPayClient</argument>
         </arguments>
     </virtualType>
-    <virtualType name="CancelUriRequestBuilder" type="Pragma\PragmaPayCore\Gateway\Request\UriWithPaymentIdPathParamBuilder">
-        <arguments>
-            <argument name="paymentUri" xsi:type="const">Pragma\PragmaPayCore\Gateway\Request\UriWithPaymentIdPathParamBuilder::CANCEL_PAYMENT_URI</argument>
-            <argument name="sandboxPaymentUri" xsi:type="const">Pragma\PragmaPayCore\Gateway\Request\UriWithPaymentIdPathParamBuilder::CANCEL_SANDBOX_PAYMENT_URI</argument>
-        </arguments>
-    </virtualType>
-    <virtualType name="PragmaPayCancelPaymentRequest" type="Magento\Payment\Gateway\Request\BuilderComposite">
-        <arguments>
-            <argument name="builders" xsi:type="array">
-                <item name="CancelUriRequestBuilder" xsi:type="string">CancelUriRequestBuilder</item>
-                <item name="PatchMethodBuilder" xsi:type="string">Pragma\PragmaPayCore\Gateway\Request\PatchMethodBuilder</item>
-                <item name="AuthorizationHeaderBuilder" xsi:type="string">Pragma\PragmaPayCore\Gateway\Request\AuthorizationHeaderBuilder</item>
-                <item name="ClientConfigDataBuilder" xsi:type="string">Pragma\PragmaPayCore\Gateway\Request\ClientConfigDataBuilder</item>
-            </argument>
-        </arguments>
-    </virtualType>
     <virtualType name="PragmaPayCancelResponse" type="Magento\Payment\Gateway\Response\HandlerChain">
         <arguments>
             <argument name="handlers" xsi:type="array">

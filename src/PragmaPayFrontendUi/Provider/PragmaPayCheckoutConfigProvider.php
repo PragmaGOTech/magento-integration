@@ -12,12 +12,20 @@ use Pragma\PragmaPayCore\Api\PragmaConnectionConfigProviderInterface;
 
 class PragmaPayCheckoutConfigProvider implements ConfigProviderInterface
 {
-    public function __construct(
-        private readonly PragmaConnectionConfigProviderInterface $connectionConfigProvider,
-        private readonly StoreManagerInterface $storeManager,
-        private readonly Repository $assetRepository,
-        private readonly ResolverInterface $resolver
-    ) {
+    private PragmaConnectionConfigProviderInterface $connectionConfigProvider;
+
+    private StoreManagerInterface $storeManager;
+
+    private Repository $assetRepository;
+
+    private ResolverInterface $resolver;
+
+    public function __construct(PragmaConnectionConfigProviderInterface $connectionConfigProvider, StoreManagerInterface $storeManager, Repository $assetRepository, ResolverInterface $resolver)
+    {
+        $this->connectionConfigProvider = $connectionConfigProvider;
+        $this->storeManager = $storeManager;
+        $this->assetRepository = $assetRepository;
+        $this->resolver = $resolver;
     }
 
     public function getConfig(): array
@@ -26,7 +34,7 @@ class PragmaPayCheckoutConfigProvider implements ConfigProviderInterface
             $isActive = $this->connectionConfigProvider->isActive(
                 (int)$this->storeManager->getStore()->getId()
             );
-        } catch (NoSuchEntityException) {
+        } catch (NoSuchEntityException $exception) {
             $isActive = false;
         }
 

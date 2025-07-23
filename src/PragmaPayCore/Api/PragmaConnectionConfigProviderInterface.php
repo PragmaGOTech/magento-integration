@@ -18,12 +18,20 @@ interface PragmaConnectionConfigProviderInterface
     public const REDIRECT_URI_FIELD = 'redirectUri';
 
     public function isActive(int $storeId): bool;
+
     public function isSandbox(int $storeId): bool;
+
     public function getApiUrl(int $storeId): string;
+
     public function getPartnerKey(int $storeId): string;
+
     public function getPartnerSecret(int $storeId): string;
+
     public function getNotificationUrl(int $storeId): string;
+
     public function getReturnUrl(int $storeId): string;
+
     public function getCancelUrl(int $storeId): string;
+
     public function isLogCartRequest(int $storeId): bool;
 }

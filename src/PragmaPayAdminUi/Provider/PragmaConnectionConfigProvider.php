@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Pragma\PragmaPayAdminUi\Provider;
@@ -23,10 +24,14 @@ class PragmaConnectionConfigProvider implements PragmaConnectionConfigProviderIn
     private const NOTIFICATION_URL = 'pragma_payment/connection/notification_url';
     private const LOG_CART_REQUEST = 'pragma_payment/connection/log_cart_request';
 
-    public function __construct(
-        private readonly ScopeConfigInterface $scopeConfig,
-        private readonly EncryptorInterface $encryptor
-    ) {
+    private ScopeConfigInterface $scopeConfig;
+
+    private EncryptorInterface $encryptor;
+
+    public function __construct(ScopeConfigInterface $scopeConfig, EncryptorInterface $encryptor)
+    {
+        $this->scopeConfig = $scopeConfig;
+        $this->encryptor = $encryptor;
     }
 
     public function isActive(int $storeId): bool
@@ -50,9 +55,17 @@ class PragmaConnectionConfigProvider implements PragmaConnectionConfigProviderIn
     public function getPartnerKey(int $storeId): string
     {
         if ($this->isSandbox($storeId)) {
-            $encryptedValue = (string)$this->scopeConfig->getValue(self::SANDBOX_PARTNER_KEY, ScopeInterface::SCOPE_STORE, $storeId);
+            $encryptedValue = (string)$this->scopeConfig->getValue(
+                self::SANDBOX_PARTNER_KEY,
+                ScopeInterface::SCOPE_STORE,
+                $storeId
+            );
         } else {
-            $encryptedValue = (string)$this->scopeConfig->getValue(self::PARTNER_KEY, ScopeInterface::SCOPE_STORE, $storeId);
+            $encryptedValue = (string)$this->scopeConfig->getValue(
+                self::PARTNER_KEY,
+                ScopeInterface::SCOPE_STORE,
+                $storeId
+            );
         }
         return $this->encryptor->decrypt($encryptedValue);
     }
@@ -60,9 +73,17 @@ class PragmaConnectionConfigProvider implements PragmaConnectionConfigProviderIn
     public function getPartnerSecret(int $storeId): string
     {
         if ($this->isSandbox($storeId)) {
-            $encryptedValue = (string)$this->scopeConfig->getValue(self::SANDBOX_PARTNER_SECRET, ScopeInterface::SCOPE_STORE, $storeId);
+            $encryptedValue = (string)$this->scopeConfig->getValue(
+                self::SANDBOX_PARTNER_SECRET,
+                ScopeInterface::SCOPE_STORE,
+                $storeId
+            );
         } else {
-            $encryptedValue = (string)$this->scopeConfig->getValue(self::PARTNER_SECRET, ScopeInterface::SCOPE_STORE, $storeId);
+            $encryptedValue = (string)$this->scopeConfig->getValue(
+                self::PARTNER_SECRET,
+                ScopeInterface::SCOPE_STORE,
+                $storeId
+            );
         }
         return $this->encryptor->decrypt($encryptedValue);
     }

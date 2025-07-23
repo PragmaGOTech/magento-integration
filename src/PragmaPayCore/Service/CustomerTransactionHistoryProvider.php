@@ -1,21 +1,26 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Pragma\PragmaPayCore\Service;
 
 use DateTime;
-use Magento\Sales\Model\ResourceModel\Order\CollectionFactory;
 use Magento\Framework\Stdlib\DateTime\TimezoneInterface;
+use Magento\Sales\Model\ResourceModel\Order\CollectionFactory;
 use Pragma\PragmaPayCore\Api\TransactionHistoryProviderInterface;
 
 class CustomerTransactionHistoryProvider implements TransactionHistoryProviderInterface
 {
     private const MONTH = 'month';
 
-    public function __construct(
-        private readonly CollectionFactory $orderCollectionFactory,
-        private readonly TimezoneInterface $timezone
-    ) {
+    private CollectionFactory $orderCollectionFactory;
+
+    private TimezoneInterface $timezone;
+
+    public function __construct(CollectionFactory $orderCollectionFactory, TimezoneInterface $timezone)
+    {
+        $this->orderCollectionFactory = $orderCollectionFactory;
+        $this->timezone = $timezone;
     }
 
     public function execute(string $customerEmail, int $storeId): array
@@ -23,7 +28,8 @@ class CustomerTransactionHistoryProvider implements TransactionHistoryProviderIn
         return $this->getOrders($customerEmail, $storeId);
     }
 
-    private function getOrders(string $customerEmail, int $storeId): array {
+    private function getOrders(string $customerEmail, int $storeId): array
+    {
         $orderCollection = $this->orderCollectionFactory->create()
             ->addFieldToSelect(['entity_id', 'created_at', 'grand_total', 'total_refunded'])
             ->addFieldToFilter('customer_email', ['eq' => $customerEmail])

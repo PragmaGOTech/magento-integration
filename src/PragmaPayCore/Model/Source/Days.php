@@ -8,7 +8,6 @@ use Magento\Framework\Data\OptionSourceInterface;
 
 class Days implements OptionSourceInterface
 {
-
     public function toOptionArray(): array
     {
         return [

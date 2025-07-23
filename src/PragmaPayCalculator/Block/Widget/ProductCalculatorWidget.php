@@ -15,21 +15,30 @@ use Pragma\PragmaPayCore\Api\PragmaConnectionConfigProviderInterface;
 
 class ProductCalculatorWidget extends AbstractCalculator implements BlockInterface
 {
+    private ProductRepositoryInterface $productRepository;
+
+    private CalculatorApiConfig $calculatorApiConfig;
+
+    private Registry $registry;
+
     public function __construct(
         Context $context,
-        private readonly ProductRepositoryInterface $productRepository,
-        private readonly CalculatorApiConfig $calculatorApiConfig,
+        ProductRepositoryInterface $productRepository,
+        CalculatorApiConfig $calculatorApiConfig,
         StoreManagerInterface $storeManager,
         PragmaConnectionConfigProviderInterface $connectionConfigProvider,
-        private readonly Registry $registry,
+        Registry $registry,
         array $data = []
     ) {
+        $this->productRepository = $productRepository;
+        $this->calculatorApiConfig = $calculatorApiConfig;
+        $this->registry = $registry;
         parent::__construct($context, $storeManager, $connectionConfigProvider, $data);
     }
 
     public function getProductPrice(): ?int
     {
-        return $this->calculatorApiConfig->prepareAmount((float)$this->getProduct()?->getFinalPrice());
+        return $this->calculatorApiConfig->prepareAmount((float)(($nullsafeVariable1 = $this->getProduct()) ? $nullsafeVariable1->getFinalPrice() : null));
     }
 
     private function getProduct(): ?ProductInterface
@@ -38,7 +47,7 @@ class ProductCalculatorWidget extends AbstractCalculator implements BlockInterfa
         if ($productId) {
             try {
                 return $this->productRepository->getById($productId);
-            } catch (NoSuchEntityException) {
+            } catch (NoSuchEntityException $exception) {
                 return null;
             }
         }
