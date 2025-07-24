@@ -17,13 +17,23 @@ use Psr\Log\LoggerInterface;
 
 class ApiClient implements ApiClientInterface
 {
-    public function __construct(
-        private readonly PragmaConnectionConfigProviderInterface $connectionConfigProvider,
-        private readonly Json $json,
-        private readonly ClientFactory $clientFactory,
-        private readonly StoreManagerInterface $storeManager,
-        private readonly LoggerInterface $logger
-    ) {
+    private PragmaConnectionConfigProviderInterface $connectionConfigProvider;
+
+    private Json $json;
+
+    private ClientFactory $clientFactory;
+
+    private StoreManagerInterface $storeManager;
+
+    private LoggerInterface $logger;
+
+    public function __construct(PragmaConnectionConfigProviderInterface $connectionConfigProvider, Json $json, ClientFactory $clientFactory, StoreManagerInterface $storeManager, LoggerInterface $logger)
+    {
+        $this->connectionConfigProvider = $connectionConfigProvider;
+        $this->json = $json;
+        $this->clientFactory = $clientFactory;
+        $this->storeManager = $storeManager;
+        $this->logger = $logger;
     }
 
     public function submit(string $actionUri, array $params, array $headers = [], string $method = 'POST'): string
@@ -74,13 +84,13 @@ class ApiClient implements ApiClientInterface
             // Validate JSON response
             try {
                 $this->json->unserialize($responseBody);
-            } catch (InvalidArgumentException) {
+            } catch (InvalidArgumentException $exception) {
                 throw new ApiException('Invalid response format');
             }
 
             return $responseBody;
         } catch (ClientException|GuzzleException $e) {
-            if (str_contains($e->getMessage(), 'Timeout')) {
+            if (strpos($e->getMessage(), 'Timeout') !== false) {
                 throw new ApiException('Request timed out');
             }
 
@@ -93,10 +103,14 @@ class ApiClient implements ApiClientInterface
 
     private function isValidStatusCode(int $statusCode): bool
     {
-        return match ($statusCode) {
-            200, 201, 202 => true,
-            default => false
-        };
+        switch ($statusCode) {
+            case 200:
+            case 201:
+            case 202:
+                return true;
+            default:
+                return false;
+        }
     }
 
     private function getClient(int $storeId): Client

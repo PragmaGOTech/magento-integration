@@ -9,9 +9,11 @@ use Magento\Sales\Api\CreditmemoRepositoryInterface;
 
 class PragmaPayRefundPayment implements HandlerInterface
 {
-    public function __construct(
-        private readonly CreditmemoRepositoryInterface $creditMemoRepository,
-    ) {
+    private CreditmemoRepositoryInterface $creditMemoRepository;
+
+    public function __construct(CreditmemoRepositoryInterface $creditMemoRepository)
+    {
+        $this->creditMemoRepository = $creditMemoRepository;
     }
 
     public function handle(array $handlingSubject, array $response)

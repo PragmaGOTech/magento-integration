@@ -10,8 +10,11 @@ use Magento\Sales\Api\OrderRepositoryInterface;
 
 class PragmaPayCancelPayment implements HandlerInterface
 {
-    public function __construct(private readonly OrderRepositoryInterface $orderRepository)
+    private OrderRepositoryInterface $orderRepository;
+
+    public function __construct(OrderRepositoryInterface $orderRepository)
     {
+        $this->orderRepository = $orderRepository;
     }
 
     public function handle(array $handlingSubject, array $response)
@@ -29,7 +32,7 @@ class PragmaPayCancelPayment implements HandlerInterface
                 'Transaction was canceled on PragmaPay side',
             );
             $order->addCommentToStatusHistory($message);
-        } catch (NoSuchEntityException) {
+        } catch (NoSuchEntityException $exception) {
             return;
         }
     }

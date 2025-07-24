@@ -11,15 +11,16 @@ use Pragma\PragmaPayWebApi\Api\NotifyOrderProcessorInterface;
 
 class NotifyOrderProcessor implements NotifyOrderProcessorInterface
 {
-    public function __construct(
-        private readonly AcceptOrderPaymentInterface $acceptOrderPayment,
-        private readonly CancelOrderPaymentInterface $cancelOrderPayment,
-    ) {
+    private AcceptOrderPaymentInterface $acceptOrderPayment;
+
+    private CancelOrderPaymentInterface $cancelOrderPayment;
+
+    public function __construct(AcceptOrderPaymentInterface $acceptOrderPayment, CancelOrderPaymentInterface $cancelOrderPayment)
+    {
+        $this->acceptOrderPayment = $acceptOrderPayment;
+        $this->cancelOrderPayment = $cancelOrderPayment;
     }
 
-    /**
-     * @throws CommandException
-     */
     public function execute(string $status, string $pragmaPaymentId, int $totalAmount, ?string $orderIncrementUuid): void
     {
         $totalAmount = (float)($totalAmount / 100);

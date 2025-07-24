@@ -12,9 +12,11 @@ use Pragma\PragmaPayCore\Client\RequestManager;
 
 class CustomerBuilder implements BuilderInterface
 {
-    public function __construct(
-        private readonly RequestManager $requestManager,
-    ) {
+    private RequestManager $requestManager;
+
+    public function __construct(RequestManager $requestManager)
+    {
+        $this->requestManager = $requestManager;
     }
 
     public function build(array $buildSubject): array

@@ -8,9 +8,11 @@ use Pragma\PragmaPayCore\Api\PragmaConnectionConfigProviderInterface;
 
 class IsPaymentMethodActive implements AvailabilityCheckerInterface
 {
-    public function __construct(
-        private readonly PragmaConnectionConfigProviderInterface $configProvider,
-    ) {
+    private PragmaConnectionConfigProviderInterface $configProvider;
+
+    public function __construct(PragmaConnectionConfigProviderInterface $configProvider)
+    {
+        $this->configProvider = $configProvider;
     }
 
     public function execute(Quote $quote): bool

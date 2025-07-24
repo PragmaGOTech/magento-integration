@@ -13,23 +13,19 @@ use Psr\Log\LoggerInterface;
 
 class ConfirmNotify implements ConfirmNotifyInterface
 {
+    private NotifyOrderProcessorInterface $notifyOrderProcessor;
 
-    public function __construct(
-        private readonly NotifyOrderProcessorInterface $notifyOrderProcessor,
-        private readonly Json $json,
-        private readonly LoggerInterface $logger
-    ) {
+    private Json $json;
+
+    private LoggerInterface $logger;
+
+    public function __construct(NotifyOrderProcessorInterface $notifyOrderProcessor, Json $json, LoggerInterface $logger)
+    {
+        $this->notifyOrderProcessor = $notifyOrderProcessor;
+        $this->json = $json;
+        $this->logger = $logger;
     }
 
-    /**
-     * @param string $id
-     * @param \Pragma\PragmaPayWebApi\Api\Data\NotificationObjectInterface $object
-     * @param string $type
-     * @param string $date
-     * @param string $timestamp
-     * @return string
-     * @throws \Magento\Framework\Exception\LocalizedException
-     */
     public function execute(
         string $id,
         NotificationObjectInterface $object,

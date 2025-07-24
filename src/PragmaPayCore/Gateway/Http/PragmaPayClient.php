@@ -11,10 +11,14 @@ use Pragma\PragmaPayCore\Exception\ApiException;
 
 class PragmaPayClient implements ClientInterface
 {
-    public function __construct(
-        private readonly ApiClientInterface $apiClient,
-        private readonly Json $json
-    ) {
+    private ApiClientInterface $apiClient;
+
+    private Json $json;
+
+    public function __construct(ApiClientInterface $apiClient, Json $json)
+    {
+        $this->apiClient = $apiClient;
+        $this->json = $json;
     }
 
     public function placeRequest(TransferInterface $transferObject): array
@@ -26,7 +30,7 @@ class PragmaPayClient implements ClientInterface
                 $transferObject->getHeaders(),
                 $transferObject->getMethod()
             );
-        } catch (ApiException) {
+        } catch (ApiException $exception) {
             return [];
         }
 

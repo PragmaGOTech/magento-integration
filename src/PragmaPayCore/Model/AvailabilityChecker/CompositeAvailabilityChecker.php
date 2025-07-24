@@ -7,8 +7,11 @@ use Magento\Quote\Model\Quote;
 
 class CompositeAvailabilityChecker implements AvailabilityCheckerInterface
 {
-    public function __construct(private readonly array $availabilityCheckers)
+    private array $availabilityCheckers;
+
+    public function __construct(array $availabilityCheckers)
     {
+        $this->availabilityCheckers = $availabilityCheckers;
     }
 
     public function execute(Quote $quote): bool

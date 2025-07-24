@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Pragma\PragmaPayCalculator\Block\Widget;
@@ -13,14 +14,20 @@ use Throwable;
 
 class CartCalculatorWidget extends AbstractCalculator implements BlockInterface
 {
+    private CalculatorApiConfig $calculatorApiConfig;
+
+    private CheckoutSession $checkoutSession;
+
     public function __construct(
         Context $context,
-        private readonly CalculatorApiConfig $calculatorApiConfig,
+        CalculatorApiConfig $calculatorApiConfig,
         StoreManagerInterface $storeManager,
         PragmaConnectionConfigProviderInterface $connectionConfigProvider,
-        private readonly CheckoutSession $checkoutSession,
+        CheckoutSession $checkoutSession,
         array $data = []
     ) {
+        $this->calculatorApiConfig = $calculatorApiConfig;
+        $this->checkoutSession = $checkoutSession;
         parent::__construct($context, $storeManager, $connectionConfigProvider, $data);
     }
 
@@ -30,7 +37,7 @@ class CartCalculatorWidget extends AbstractCalculator implements BlockInterface
             return $this->calculatorApiConfig->prepareAmount(
                 (float)$this->checkoutSession->getQuote()->getGrandTotal()
             );
-        } catch (Throwable) {
+        } catch (Throwable $exception) {
             return null;
         }
     }

@@ -16,24 +16,27 @@ use Psr\Log\LoggerInterface;
 
 class AuthorizationTokenProvider implements AuthorizationTokenProviderInterface
 {
-    private ?string $accessToken = null;
-
     private const AUTHORIZATION_URI = 'api/partner/authorize';
     private const SANDBOX_AUTHORIZATION_URI = 'api/partner/authorize';
 
-    public function __construct(
-        private readonly ApiClientInterface $apiClient,
-        private readonly PragmaConnectionConfigProviderInterface $connectionConfigProvider,
-        private readonly Json $json,
-        private readonly LoggerInterface $logger
-    ) {
+    private ApiClientInterface $apiClient;
+
+    private PragmaConnectionConfigProviderInterface $connectionConfigProvider;
+
+    private Json $json;
+
+    private LoggerInterface $logger;
+
+    private ?string $accessToken = null;
+
+    public function __construct(ApiClientInterface $apiClient, PragmaConnectionConfigProviderInterface $connectionConfigProvider, Json $json, LoggerInterface $logger)
+    {
+        $this->apiClient = $apiClient;
+        $this->connectionConfigProvider = $connectionConfigProvider;
+        $this->json = $json;
+        $this->logger = $logger;
     }
 
-    /**
-     * @param int|null $storeId
-     * @return string|null
-     * @throws Exception
-     */
     public function getAccessToken(?int $storeId = null): ?string
     {
         if ($this->accessToken !== null) {

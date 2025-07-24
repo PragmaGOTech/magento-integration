@@ -9,10 +9,6 @@ use Magento\Payment\Block\ConfigurableInfo;
 
 class Info extends ConfigurableInfo
 {
-    /**
-     * @param $transport
-     * @return DataObject|null
-     */
     protected function _prepareSpecificInformation($transport = null)
     {
         $transport = parent::_prepareSpecificInformation($transport);
@@ -24,12 +20,6 @@ class Info extends ConfigurableInfo
         return $transport;
     }
 
-    /**
-     * Returns label
-     *
-     * @param string $field
-     * @return string
-     */
     protected function getLabel($field): string
     {
         $label = $this->getData('labelMapper')[$field] ?? $field;

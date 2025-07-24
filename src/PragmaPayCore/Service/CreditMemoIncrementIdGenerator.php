@@ -7,9 +7,11 @@ use Magento\SalesSequence\Model\Manager as SequenceManager;
 
 class CreditMemoIncrementIdGenerator
 {
-    public function __construct(
-        private readonly SequenceManager $sequenceManager
-    ) {
+    private SequenceManager $sequenceManager;
+
+    public function __construct(SequenceManager $sequenceManager)
+    {
+        $this->sequenceManager = $sequenceManager;
     }
 
     public function getNextCreditMemoIncrementId(int $storeId): string

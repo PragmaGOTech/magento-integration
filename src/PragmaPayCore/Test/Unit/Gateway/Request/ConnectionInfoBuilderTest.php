@@ -50,11 +50,14 @@ class ConnectionInfoBuilderTest extends TestCase
             if (isset($routeParams['_direct'])) {
                 return $notificationUrl;
             }
-            return match ($route) {
-                'return' => $returnUrl,
-                'cancel' => $cancelUrl,
-                default => null,
-            };
+            switch ($route) {
+                case 'return':
+                    return $returnUrl;
+                case 'cancel':
+                    return $cancelUrl;
+                default:
+                    return null;
+            }
         });
 
         $buildSubject = ['payment' => $paymentDataObject];

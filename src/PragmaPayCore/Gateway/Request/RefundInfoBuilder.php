@@ -13,11 +13,14 @@ use Pragma\PragmaPayCore\Service\CreditMemoIncrementIdGenerator;
 
 class RefundInfoBuilder implements BuilderInterface
 {
+    private RequestManager $requestManager;
 
-    public function __construct(
-        private readonly RequestManager $requestManager,
-        private readonly CreditMemoIncrementIdGenerator $creditMemoIncrementIdGenerator,
-    ) {
+    private CreditMemoIncrementIdGenerator $creditMemoIncrementIdGenerator;
+
+    public function __construct(RequestManager $requestManager, CreditMemoIncrementIdGenerator $creditMemoIncrementIdGenerator)
+    {
+        $this->requestManager = $requestManager;
+        $this->creditMemoIncrementIdGenerator = $creditMemoIncrementIdGenerator;
     }
 
     public function build(array $buildSubject): array

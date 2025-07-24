@@ -17,9 +17,15 @@ use Pragma\PragmaPayCore\Api\PragmaConnectionConfigProviderInterface;
 class CartCalculatorWidgetTest extends TestCase
 {
     private CartCalculatorWidget $cartCalculatorWidget;
+
     private CalculatorApiConfig $calculatorApiConfig;
+
     private CheckoutSession $checkoutSession;
-    private MockObject|Quote $quote;
+
+    /**
+     * @var \PHPUnit\Framework\MockObject\MockObject|\Magento\Quote\Model\Quote
+     */
+    private $quote;
 
     protected function setUp(): void
     {

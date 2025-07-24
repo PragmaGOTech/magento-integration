@@ -13,9 +13,11 @@ use Pragma\PragmaPayCore\Model\AvailabilityChecker\AvailabilityCheckerInterface;
 
 class IsPragmaPayActiveObserver implements ObserverInterface
 {
-    public function __construct(
-        private readonly AvailabilityCheckerInterface $availabilityChecker
-    ) {
+    private AvailabilityCheckerInterface $availabilityChecker;
+
+    public function __construct(AvailabilityCheckerInterface $availabilityChecker)
+    {
+        $this->availabilityChecker = $availabilityChecker;
     }
 
     public function execute(Observer $observer): void

@@ -10,5 +10,4 @@ interface PragmaPaymentStatus
     public const STATUS_REJECTED = 'REJECTED';
     public const STATUS_WAITING = 'WAITING';
     public const STATUS_CANCELED = 'CANCELED';
-
 }

@@ -13,26 +13,19 @@ use Magento\Sales\Model\Order\Payment;
 
 class PaymentDataObjectFactory implements PaymentDataObjectFactoryInterface
 {
-    /**
-     * Factory constructor
-     *
-     * @param ObjectManagerInterface $objectManager
-     * @param Order\OrderAdapterFactory $orderAdapterFactory
-     * @param Quote\QuoteAdapterFactory $quoteAdapterFactory
-     */
-    public function __construct(
-        private readonly ObjectManagerInterface $objectManager,
-        private readonly OrderAdapterFactory $orderAdapterFactory,
-        private readonly QuoteAdapterFactory $quoteAdapterFactory
-    ) {
+    private ObjectManagerInterface $objectManager;
+
+    private OrderAdapterFactory $orderAdapterFactory;
+
+    private QuoteAdapterFactory $quoteAdapterFactory;
+
+    public function __construct(ObjectManagerInterface $objectManager, OrderAdapterFactory $orderAdapterFactory, QuoteAdapterFactory $quoteAdapterFactory)
+    {
+        $this->objectManager = $objectManager;
+        $this->orderAdapterFactory = $orderAdapterFactory;
+        $this->quoteAdapterFactory = $quoteAdapterFactory;
     }
 
-    /**
-     * Creates Payment Data Object
-     *
-     * @param InfoInterface $paymentInfo
-     * @return PaymentDataObjectInterface
-     */
     public function create(InfoInterface $paymentInfo): PaymentDataObjectInterface
     {
         if ($paymentInfo instanceof Payment) {

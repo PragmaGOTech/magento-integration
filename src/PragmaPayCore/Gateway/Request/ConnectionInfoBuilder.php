@@ -12,10 +12,14 @@ use Pragma\PragmaPayCore\Api\PragmaConnectionConfigProviderInterface;
 
 class ConnectionInfoBuilder implements BuilderInterface
 {
-    public function __construct(
-        private readonly PragmaConnectionConfigProviderInterface $configProvider,
-        private readonly Url $urlBuilder,
-    ) {
+    private PragmaConnectionConfigProviderInterface $configProvider;
+
+    private Url $urlBuilder;
+
+    public function __construct(PragmaConnectionConfigProviderInterface $configProvider, Url $urlBuilder)
+    {
+        $this->configProvider = $configProvider;
+        $this->urlBuilder = $urlBuilder;
     }
 
     public function build(array $buildSubject): array

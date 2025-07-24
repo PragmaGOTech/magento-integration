@@ -8,9 +8,11 @@ use Pragma\PragmaPayCore\Client\RequestManager;
 
 class CalculatorApiConfig
 {
-    public function __construct(
-        private readonly RequestManager $requestManager,
-    ) {
+    private RequestManager $requestManager;
+
+    public function __construct(RequestManager $requestManager)
+    {
+        $this->requestManager = $requestManager;
     }
 
     public function prepareAmount(?float $amount): ?int

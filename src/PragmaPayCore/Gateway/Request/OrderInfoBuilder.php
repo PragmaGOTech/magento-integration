@@ -13,10 +13,14 @@ use Pragma\PragmaPayCore\Service\GenerateUuid5;
 
 class OrderInfoBuilder implements BuilderInterface
 {
-    public function __construct(
-        private readonly RequestManager $requestManager,
-        private readonly GenerateUuid5 $generateUuid5
-    ) {
+    private RequestManager $requestManager;
+
+    private GenerateUuid5 $generateUuid5;
+
+    public function __construct(RequestManager $requestManager, GenerateUuid5 $generateUuid5)
+    {
+        $this->requestManager = $requestManager;
+        $this->generateUuid5 = $generateUuid5;
     }
 
     public function build(array $buildSubject): array

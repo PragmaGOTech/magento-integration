@@ -31,7 +31,7 @@ class RequestManager
         }
 
         $prefix = '+' . self::DEFAULT_PHONE_PREFIX;
-        if (str_starts_with($phone, self::DEFAULT_PHONE_PREFIX)) {
+        if (strncmp($phone, self::DEFAULT_PHONE_PREFIX, strlen(self::DEFAULT_PHONE_PREFIX)) === 0) {
             $phone = substr($phone, 2);
         }
 
@@ -53,7 +53,7 @@ class RequestManager
             $countryCode = self::DEFAULT_REGISTRATION_COUNTRY;
         }
 
-        if (!str_starts_with($vatId, $countryCode)) {
+        if (strncmp($vatId, $countryCode, strlen($countryCode)) !== 0) {
             $vatId = $countryCode . $vatId;
         }
 

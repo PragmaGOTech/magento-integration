@@ -21,11 +21,17 @@ class UriWithPaymentIdPathParamBuilder implements BuilderInterface
     public const GET_PAYMENT_URI = 'api/v2/partner/payment/%s';
     public const GET_SANDBOX_PAYMENT_URI = 'api/v2/partner/payment/%s';
 
-    public function __construct(
-        private readonly PragmaConnectionConfigProviderInterface $configProvider,
-        private readonly string $paymentUri,
-        private readonly string $sandboxPaymentUri,
-    ) {
+    private PragmaConnectionConfigProviderInterface $configProvider;
+
+    private string $paymentUri;
+
+    private string $sandboxPaymentUri;
+
+    public function __construct(PragmaConnectionConfigProviderInterface $configProvider, string $paymentUri, string $sandboxPaymentUri)
+    {
+        $this->configProvider = $configProvider;
+        $this->paymentUri = $paymentUri;
+        $this->sandboxPaymentUri = $sandboxPaymentUri;
     }
 
     public function build(array $buildSubject): array
@@ -55,6 +61,7 @@ class UriWithPaymentIdPathParamBuilder implements BuilderInterface
             'uri' => $this->getPaymentUri($storeId, (string)$pragmaPaymentId),
         ];
     }
+
     private function getPaymentUri(int $storeId, string $paymentId): string
     {
         $uri = $this->configProvider->isSandbox($storeId)
